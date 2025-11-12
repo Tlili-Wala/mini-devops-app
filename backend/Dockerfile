@@ -1,8 +1,9 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=20.18.0
+ARG NODE_VERSION=20.19.0
 
 FROM node:${NODE_VERSION}-alpine AS base
+RUN npm install -g npm@11.6.2
 WORKDIR /app
 
 FROM base AS deps
