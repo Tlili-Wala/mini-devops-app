@@ -25,14 +25,14 @@ pipeline {
         stage('Frontend') {
           steps {
             dir('frontend') {
-              sh """docker run --rm -v "$PWD":/workspace -w /workspace node:${NODE_VERSION} npm ci"""
+              sh "docker run --rm -v \$(pwd):/workspace -w /workspace node:${NODE_VERSION} npm ci"
             }
           }
         }
         stage('Backend') {
           steps {
             dir('backend') {
-              sh """docker run --rm -v "$PWD":/workspace -w /workspace node:${NODE_VERSION} npm ci"""
+              sh "docker run --rm -v \$(pwd):/workspace -w /workspace node:${NODE_VERSION} npm ci"
             }
           }
         }
@@ -44,14 +44,14 @@ pipeline {
         stage('Frontend Lint') {
           steps {
             dir('frontend') {
-              sh """docker run --rm -v "$PWD":/workspace -w /workspace node:${NODE_VERSION} npm run lint"""
+              sh "docker run --rm -v \$(pwd):/workspace -w /workspace node:${NODE_VERSION} npm run lint"
             }
           }
         }
         stage('Backend Lint') {
           steps {
             dir('backend') {
-              sh """docker run --rm -v "$PWD":/workspace -w /workspace node:${NODE_VERSION} npm run lint"""
+              sh "docker run --rm -v \$(pwd):/workspace -w /workspace node:${NODE_VERSION} npm run lint"
             }
           }
         }
@@ -63,14 +63,14 @@ pipeline {
         stage('Frontend Build') {
           steps {
             dir('frontend') {
-              sh """docker run --rm -v "$PWD":/workspace -w /workspace -e VITE_API_URL=/api node:${NODE_VERSION} npm run build"""
+              sh "docker run --rm -v \$(pwd):/workspace -w /workspace -e VITE_API_URL=/api node:${NODE_VERSION} npm run build"
             }
           }
         }
         stage('Backend Build') {
           steps {
             dir('backend') {
-              sh """docker run --rm -v "$PWD":/workspace -w /workspace node:${NODE_VERSION} npm run build"""
+              sh "docker run --rm -v \$(pwd):/workspace -w /workspace node:${NODE_VERSION} npm run build"
             }
           }
         }
