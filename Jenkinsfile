@@ -23,26 +23,10 @@ pipeline {
     stage('Install Dependencies') {
       parallel {
         stage('Frontend') {
-          steps {
-            dir('frontend') {
-              script {
-                docker.image("node:${NODE_VERSION}").inside {
-                  sh 'npm ci'
-                }
-              }
-            }
-          }
+         steps { dir('frontend') { sh 'npm ci' } }
         }
         stage('Backend') {
-          steps {
-            dir('backend') {
-              script {
-                docker.image("node:${NODE_VERSION}").inside {
-                  sh 'npm ci'
-                }
-              }
-            }
-          }
+         steps { dir('backend') { sh 'npm ci' } }
         }
       }
     }
@@ -52,22 +36,14 @@ pipeline {
         stage('Frontend Lint') {
           steps {
             dir('frontend') {
-              script {
-                docker.image("node:${NODE_VERSION}").inside {
-                  sh 'npm run lint'
-                }
-              }
+              sh 'npm run lint'
             }
           }
         }
         stage('Backend Lint') {
           steps {
             dir('backend') {
-              script {
-                docker.image("node:${NODE_VERSION}").inside {
-                  sh 'npm run lint'
-                }
-              }
+              sh 'npm run lint'
             }
           }
         }
@@ -79,22 +55,14 @@ pipeline {
         stage('Frontend Build') {
           steps {
             dir('frontend') {
-              script {
-                docker.image("node:${NODE_VERSION}").inside('--env VITE_API_URL=/api') {
-                  sh 'npm run build'
-                }
-              }
+              sh 'VITE_API_URL=/api npm run build'
             }
           }
         }
         stage('Backend Build') {
           steps {
             dir('backend') {
-              script {
-                docker.image("node:${NODE_VERSION}").inside {
-                  sh 'npm run build'
-                }
-              }
+              sh 'npm run build'
             }
           }
         }
