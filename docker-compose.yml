@@ -1,7 +1,7 @@
 services:
   backend:
     build:
-      context: /home/wala/Downloads/mini-devops-app/backend
+      context: ./backend
       dockerfile: Dockerfile
       args:
         NODE_VERSION: 20.18.0
@@ -17,7 +17,7 @@ services:
 
   frontend:
     build:
-      context: /home/wala/Downloads/mini-devops-app/frontend
+      context: ./frontend
       dockerfile: Dockerfile
       args:
         NODE_VERSION: 20.18.0

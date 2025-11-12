@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: note-pinner-backend-config
+  labels:
+    app: note-pinner-backend
+data:
+  PORT: "4000"
+  NODE_ENV: production
+

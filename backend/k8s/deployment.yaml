@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: note-pinner-backend
+  labels:
+    app: note-pinner-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: note-pinner-backend
+  template:
+    metadata:
+      labels:
+        app: note-pinner-backend
+    spec:
+      containers:
+        - name: backend
+          image: wala19/mini-devops-app-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: note-pinner-backend-config
+                  key: PORT
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: note-pinner-backend-config
+                  key: NODE_ENV
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+

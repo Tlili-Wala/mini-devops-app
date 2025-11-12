@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: note-pinner-frontend
+  labels:
+    app: note-pinner-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: note-pinner-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+
