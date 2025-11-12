@@ -16,6 +16,7 @@ COPY src ./src
 RUN npm run build
 
 FROM node:${NODE_VERSION}-alpine AS runtime
+RUN npm install -g npm@11.6.2
 WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json package-lock.json ./
