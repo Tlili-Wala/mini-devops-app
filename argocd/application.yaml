@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: note-pinner
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-username/mini-devops-app.git
+    targetRevision: main
+    path: helm/note-pinner
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: note-pinner
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

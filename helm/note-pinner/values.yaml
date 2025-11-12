@@ -1,0 +1,59 @@
+global:
+  image:
+    registry: docker.io
+    repositoryPrefix: ""
+    tag: latest
+  node:
+    version: "20.19.0"
+
+backend:
+  replicaCount: 1
+  image:
+    repository: mini-devops-app-backend
+  service:
+    name: backend
+    type: ClusterIP
+    port: 4000
+  podAnnotations: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  livenessProbe:
+    path: /healthz
+    port: http
+  readinessProbe:
+    path: /healthz
+    port: http
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: mini-devops-app-frontend
+  service:
+    name: frontend
+    type: NodePort
+    port: 80
+    nodePort: 30080
+  podAnnotations: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  ingress:
+    enabled: false
+    className: ""
+    annotations: {}
+    hosts:
+      - host: note-pinner.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+

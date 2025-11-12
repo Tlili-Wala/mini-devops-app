@@ -1,0 +1,16 @@
+Thank you for installing {{ include "note-pinner.fullname" . }}!
+
+To access the frontend:
+
+  1. Run:  kubectl get svc {{ .Values.frontend.service.name }} -n {{ .Release.Namespace }}
+  2. If using NodePort (default for Minikube), run:
+       minikube service {{ .Values.frontend.service.name }} --namespace {{ .Release.Namespace }}
+
+The backend service is available at:
+
+  http://{{ .Values.backend.service.name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.backend.service.port }}
+
+For Prometheus scraping, target the backend metrics endpoint:
+
+  http://{{ .Values.backend.service.name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.backend.service.port }}/metrics
+

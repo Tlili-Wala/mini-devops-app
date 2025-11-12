@@ -1,0 +1,8 @@
+scrapeConfigs:
+  extraScrapeConfigs:
+    - job_name: note-pinner-backend
+      metrics_path: /metrics
+      static_configs:
+        - targets:
+            - backend.note-pinner.svc.cluster.local:4000
+

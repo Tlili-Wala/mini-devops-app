@@ -1,0 +1,7 @@
+apiVersion: v2
+name: note-pinner
+description: Helm chart for the Note Pinner mini DevOps application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
